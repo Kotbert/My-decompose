@@ -1,4 +1,4 @@
-package com.example.mydecompose.root
+package com.example.mydecompose.navigationComponents
 
 import android.annotation.SuppressLint
 import com.arkivanov.decompose.ComponentContext
@@ -10,15 +10,11 @@ import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.parcelable.Parcelable
-import com.example.mydecompose.detail.DefaultDetailsComponent
-import com.example.mydecompose.detail.DetailsComponent
-import com.example.mydecompose.list.DefaultListComponent
-import com.example.mydecompose.list.ListComponent
-import com.example.mydecompose.root.RootComponent.Child.DetailsChild
-import com.example.mydecompose.root.RootComponent.Child.ListChild
+import com.example.mydecompose.navigationComponents.RootComponent.Child.DetailsChild
+import com.example.mydecompose.navigationComponents.RootComponent.Child.ListChild
 import kotlinx.parcelize.Parcelize
 
-class RealRootComponent(componentContext: ComponentContext) : RootComponent,
+class DefaultRootComponent(componentContext: ComponentContext) : RootComponent,
     ComponentContext by componentContext {
 
     private val navigation = StackNavigation<Config>()
@@ -69,4 +65,17 @@ class RealRootComponent(componentContext: ComponentContext) : RootComponent,
         data class Details(val item: Int) : Config
     }
 
+}
+
+interface RootComponent {
+    val stack: Value<ChildStack<*, Child>>
+
+    // It's possible to pop multiple screens at a time on iOS
+    fun onBackClicked(toIndex: Int)
+
+    // Defines all possible child components
+    sealed class Child {
+        class ListChild(val component: ListComponent) : Child()
+        class DetailsChild(val component: DetailsComponent) : Child()
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.mydecompose.list
+package com.example.mydecompose.navigationComponents
 
 import com.arkivanov.decompose.ComponentContext
 
@@ -9,4 +9,9 @@ class DefaultListComponent(
     override fun onNextClick(id: Int) {
         onNextClickParam(id)
     }
+}
+
+interface ListComponent {
+
+    fun onNextClick(id: Int)
 }

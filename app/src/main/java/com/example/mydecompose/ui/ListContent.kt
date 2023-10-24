@@ -1,4 +1,4 @@
-package com.example.mydecompose.list
+package com.example.mydecompose.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,11 +20,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.mydecompose.ui.theme.MyDecomposeTheme
+import com.example.mydecompose.navigationComponents.ListComponent
+
+@Composable
+fun ListContent(component: ListComponent) {
+    CompListContent(onNextClick = { component.onNextClick(it) })
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListContent(component: ListComponent, modifier: Modifier = Modifier) {
+private fun CompListContent(
+    onNextClick: (Int) -> Unit, modifier: Modifier = Modifier
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -36,7 +43,7 @@ fun ListContent(component: ListComponent, modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.size(4.dp))
         repeat(5) {
             Card(modifier = Modifier.padding(vertical = 2.dp), onClick = {
-                component.onNextClick(it)
+                onNextClick(it)
             }) {
                 Row(
                     modifier = Modifier
@@ -52,8 +59,8 @@ fun ListContent(component: ListComponent, modifier: Modifier = Modifier) {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun PreviewListContent() {
-    MyDecomposeTheme {}
+    CompListContent(onNextClick = {})
 }

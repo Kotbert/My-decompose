@@ -1,7 +1,8 @@
-package com.example.mydecompose.detail
+package com.example.mydecompose.navigationComponents
 
 import com.arkivanov.decompose.ComponentContext
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
 class DefaultDetailsComponent(
@@ -15,4 +16,11 @@ class DefaultDetailsComponent(
         count.update { value + 1 }
     }
 
+}
+
+interface DetailsComponent {
+    val id: Int
+    val count: StateFlow<Int>
+
+    fun increaseCount()
 }
