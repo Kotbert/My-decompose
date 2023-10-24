@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
 class DefaultDetailsComponent(
-    componentContext: ComponentContext, onFinished: () -> Unit, override val id: Int
+    componentContext: ComponentContext, onFinished: () -> Unit
 ) : ComponentContext by componentContext, DetailsComponent {
     override var count: MutableStateFlow<Int> = MutableStateFlow(0)
         private set
@@ -19,7 +19,6 @@ class DefaultDetailsComponent(
 }
 
 interface DetailsComponent {
-    val id: Int
     val count: StateFlow<Int>
 
     fun increaseCount()

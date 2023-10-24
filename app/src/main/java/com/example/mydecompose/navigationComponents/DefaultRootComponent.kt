@@ -39,8 +39,8 @@ class DefaultRootComponent(componentContext: ComponentContext) : RootComponent,
     private fun listComponent(componentContext: ComponentContext): ListComponent =
         DefaultListComponent(
             componentContext = componentContext,
-            onNextClickParam = { item ->
-                navigation.push(Config.Details(item = item))
+            onNextClickParam = {
+                navigation.push(Config.Details)
             },
         )
 
@@ -48,7 +48,6 @@ class DefaultRootComponent(componentContext: ComponentContext) : RootComponent,
         componentContext: ComponentContext, config: Config.Details
     ): DetailsComponent = DefaultDetailsComponent(
         componentContext = componentContext,
-        id = config.item,
         onFinished = navigation::pop,
     )
 
@@ -62,7 +61,7 @@ class DefaultRootComponent(componentContext: ComponentContext) : RootComponent,
         object List : Config
 
         @SuppressLint("ParcelCreator")
-        data class Details(val item: Int) : Config
+        object Details : Config
     }
 
 }
